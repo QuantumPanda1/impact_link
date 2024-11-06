@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Link - Supporting Farmers</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #059669;
+            --accent: #f59e0b;
+            --danger: #dc2626;
+            --success: #10b981;
+            --text: #1f2937;
+            --light: #f3f4f6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+        }
+
+        /* Navigation styles */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* Main content styles */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Cause details styles */
+        .cause-header {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .cause-info h1 {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .cause-description {
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .donation-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--light);
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .donation-stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            font-size: 1.1rem;
+            color: var(--text);
+        }
+
+        .donate-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .donate-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .impact-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .impact-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-label {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .updates-section {
+            margin-top: 3rem;
+        }
+
+        .update-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .update-date {
+            color: var(--text);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 968px) {
+            .cause-header {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="dashboard.html" class="logo">Impact<span>Link</span></a>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="#" class="nav-link">Causes</a>
+                <a href="#" class="nav-link">Donations</a>
+                <a href="#" class="nav-link">Impact Report</a>
+                <div class="user-menu">
+                    <button class="user-button">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Test User</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="cause-header">
+            <div class="cause-info">
+                <h1>Supporting Farmers</h1>
+                <p class="cause-description">Our initiative aims to empower rural farmers across developing regions by providing them with essential resources, training, and support. Through this program, we help farmers adopt sustainable farming practices, access modern equipment, and connect with fair-trade markets to ensure better livelihoods for their families and communities.</p>
+                <img src="C:\Users\glaks\OneDrive\Desktop\programs\impactlink_website\India_Farming.jpg" alt="Farmers working in field" style="width: 100%; border-radius: 12px;">
+            </div>
+            <div class="donation-card">
+                <h2>Support This Cause</h2>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 75%"></div>
+                </div>
+                <div class="donation-stats">
+                    <span>Raised: $75,000</span>
+                    <span>Goal: $100,000</span>
+                </div>
+                <a href="#" class="donate-btn">Donate Now</a>
+            </div>
+        </div>
+
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="impact-value">1,250+</div>
+                <div class="impact-label">Farmers Supported</div>
+            </div>
+            <div class="impact-card">
+                <div class="impact-value">15</div>
+                <div class="impact-label">Communities Reached</div>
+            </div>
+            <div class="impact-card">
+                <div class="impact-value">85%</div>
+                <div class="impact-label">Income Increase</div>
+            </div>
+        </div>
+
+        <div class="updates-section">
+            <h2>Latest Updates</h2>
+            <div class="update-card">
+                <div class="update-date">October 15, 2024</div>
+                <h3>New Training Program Launched</h3>
+                <p>Successfully initiated our sustainable farming practices training program, reaching 200 new farmers across 5 communities.</p>
+            </div>
+            <div class="update-card">
+                <div class="update-date">October 1, 2024</div>
+                <h3>Equipment Distribution Complete</h3>
+                <p>Distributed modern farming equipment to 150 farmers, helping them increase their productivity and reduce manual labor.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Add logout functionality
+        document.querySelector('.user-button').addEventListener('click', function() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

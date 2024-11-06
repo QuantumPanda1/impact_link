@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Link - Connect for Change</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #059669;
+            --accent: #f59e0b;
+            --danger: #dc2626;
+            --success: #10b981;
+            --text: #1f2937;
+            --light: #f3f4f6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .auth-container {
+            max-width: 450px;
+            margin: 100px auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--light);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text);
+            transition: all 0.3s;
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .social-login {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .google-btn {
+            background: #ea4335;
+            color: white;
+        }
+
+        .facebook-btn {
+            background: #1877f2;
+            color: white;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+
+        .forgot-password a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .auth-message {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .auth-message.success {
+            background: #d1fae5;
+            color: var(--success);
+            display: block;
+        }
+
+        .auth-message.error {
+            background: #fee2e2;
+            color: var(--danger);
+            display: block;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: var(--light);
+        }
+
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+
+        /* Password strength indicator */
+        .password-strength {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .strength-meter {
+            height: 4px;
+            background: var(--light);
+            margin-top: 0.5rem;
+            border-radius: 2px;
+        }
+
+        .strength-meter div {
+            height: 100%;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .weak { width: 33%; background: var(--danger); }
+        .medium { width: 66%; background: var(--accent); }
+        .strong { width: 100%; background: var(--success); }
+
+        /* Test credentials box */
+        .test-credentials {
+            background: #f8f9fa;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .test-credentials h3 {
+            color: var(--text);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .credentials-item {
+            font-family: monospace;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .auth-container {
+                margin: 80px 1rem;
+            }
+
+            .social-login {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">Impact<span>Link</span></a>
+        </div>
+    </header>
+
+    <div class="auth-container">
+        <div class="auth-tabs">
+            <div class="auth-tab active" data-tab="login">Login</div>
+            <div class="auth-tab" data-tab="register">Register</div>
+        </div>
+
+        <div id="authMessage" class="auth-message"></div>
+
+        <!-- Login Form -->
+        <form id="loginForm" class="auth-form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" required>
+                <div class="forgot-password">
+                    <a href="#" id="forgotPassword">Forgot password?</a>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Login</button>
+
+            <div class="divider">or</div>
+
+            <div class="social-login">
+                <button type="button" class="social-btn google-btn">
+                    <i class="fab fa-google"></i> Google
+                </button>
+                <button type="button" class="social-btn facebook-btn">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </button>
+            </div>
+
+            <div class="test-credentials">
+                <h3>Test Credentials</h3>
+                <p class="credentials-item">Email: test@impactlink.org</p>
+                <p class="credentials-item">Password: Test@2024</p>
+            </div>
+        </form>
+
+        <!-- Register Form (hidden by default) -->
+        <form id="registerForm" class="auth-form" style="display: none;">
+            <div class="form-group">
+                <label for="regName">Full Name</label>
+                <input type="text" id="regName" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="regEmail">Email</label>
+                <input type="email" id="regEmail" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="regPassword">Password</label>
+                <input type="password" id="regPassword" class="form-control" required>
+                <div class="password-strength">
+                    <div class="strength-meter">
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" class="form-control" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Create Account</button>
+
+            <div class="divider">or</div>
+
+            <div class="social-login">
+                <button type="button" class="social-btn google-btn">
+                    <i class="fab fa-google"></i> Google
+                </button>
+                <button type="button" class="social-btn facebook-btn">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.auth-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                if (tab.dataset.tab === 'login') {
+                    document.getElementById('loginForm').style.display = 'block';
+                    document.getElementById('registerForm').style.display = 'none';
+                } else {
+                    document.getElementById('loginForm').style.display = 'none';
+                    document.getElementById('registerForm').style.display = 'block';
+                }
+            });
+        });
+
+        // Password strength checker
+        document.getElementById('regPassword').addEventListener('input', function(e) {
+            const password = e.target.value;
+            const strengthMeter = document.querySelector('.strength-meter div');
+            
+            // Simple password strength logic
+            const hasLower = /[a-z]/.test(password);
+            const hasUpper = /[A-Z]/.test(password);
+            const hasNumber = /\d/.test(password);
+            const hasSpecial = /[!@#$%^&*]/.test(password);
+            const isLongEnough = password.length >= 8;
+
+            const strength = [hasLower, hasUpper, hasNumber, hasSpecial, isLongEnough]
+                .filter(Boolean).length;
+
+            strengthMeter.className = '';
+            if (strength <= 2) strengthMeter.classList.add('weak');
+            else if (strength <= 4) strengthMeter.classList.add('medium');
+            else strengthMeter.classList.add('strong');
+        });
+
+        // Login form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('authMessage');
+
+            if (email === 'test@impactlink.org' && password === 'Test@2024') {
+                messageDiv.className = 'auth-message success';
+                messageDiv.textContent = 'Login successful! Redirecting to dashboard...';
+                setTimeout(() => {
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.html';
+                }, 2000);
+            } else {
+                messageDiv.className = 'auth-message error';
+                messageDiv.textContent = 'Invalid email or password';
+            }
+        });
+
+        // Registration form submission
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const messageDiv = document.getElementById('authMessage');
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                messageDiv.className = 'auth-message error';
+                messageDiv.textContent = 'Passwords do not match';
+                return;
+            }
+
+            messageDiv.className = 'auth-message success';
+            messageDiv.textContent = 'Registration successful! Please check your email to verify your account.';
+        });
+
+        // Forgot password handler
+        document.getElementById('forgotPassword').addEventListener('click', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const messageDiv = document.getElementById('authMessage');
+
+            if (!email) {
+                messageDiv.className = 'auth-message error';
+                messageDiv.textContent = 'Please enter your email address first';
+                return;
+            }
+
+            messageDiv.className = 'auth-message success';
+            messageDiv.textContent = 'Password reset instructions have been sent to your email';
+        });
+
+        // Social login handlers
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const messageDiv = document.getElementById('authMessage');
+                messageDiv.className = 'auth-message error';
+                messageDiv.textContent = 'Social login is currently unavailable in demo mode';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Link - Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #059669;
+            --accent: #f59e0b;
+            --danger: #dc2626;
+            --success: #10b981;
+            --text: #1f2937;
+            --light: #f3f4f6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+        }
+
+        /* Navigation styles */
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .user-menu {
+            position: relative;
+        }
+
+        .user-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* Main content styles */
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Dashboard grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stats-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .stats-card h3 {
+            color: var(--text);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .stats-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-change {
+            color: var(--success);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Causes grid */
+        .causes-section {
+            margin-top: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .causes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .cause-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .cause-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cause-image {
+            width: 100%;
+            height: 200px;
+            background-color: #ddd;
+            position: relative;
+        }
+
+        .cause-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cause-content {
+            padding: 1.5rem;
+        }
+
+        .cause-content h3 {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--light);
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .cause-stats {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .donate-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .donate-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Impact<span>Link</span></a>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Dashboard</a>
+                <a href="#" class="nav-link">Causes</a>
+                <a href="#" class="nav-link">Donations</a>
+                <a href="#" class="nav-link">Impact Report</a>
+                <div class="user-menu">
+                    <button class="user-button">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Test User</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="dashboard-grid">
+            <div class="stats-card">
+                <h3>Total Donations</h3>
+                <div class="stats-value">$45,280</div>
+                <div class="stats-change">
+                    <i class="fas fa-arrow-up"></i> 12% from last month
+                </div>
+            </div>
+            <div class="stats-card">
+                <h3>Active Causes</h3>
+                <div class="stats-value">24</div>
+                <div class="stats-change">
+                    <i class="fas fa-arrow-up"></i> 4 new this month
+                </div>
+            </div>
+            <div class="stats-card">
+                <h3>Lives Impacted</h3>
+                <div class="stats-value">12,458</div>
+                <div class="stats-change">
+                    <i class="fas fa-arrow-up"></i> 8% increase
+                </div>
+            </div>
+        </div>
+
+        <div class="causes-section">
+            <div class="section-header">
+                <h2>Active Causes</h2>
+            </div>
+            <div class="causes-grid">
+                <!-- Cause 1 -->
+                <div class="cause-card">
+                    <div class="cause-image">
+                        <img src="India_Farming.jpg" alt="Farmer Support">
+                    </div>
+                    <div class="cause-content">
+                        <h3>Supporting Farmers</h3>
+                        <p>Help provide resources and support to rural farmers</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 75%"></div>
+                        </div>
+                        <div class="cause-stats">
+                            <span>Raised: $75,000</span>
+                            <span>Goal: $100,000</span>
+                        </div>
+                        <a href="farmer_support.html" class="donate-btn">Donate Now</a>
+                    </div>
+                </div>
+
+                <!-- Cause 2 -->
+                <div class="cause-card">
+                    <div class="cause-image">
+                        <img src="girls_res_image.jpg" alt="Girl Education">
+                    </div>
+                    <div class="cause-content">
+                        <h3>Girl Child Education</h3>
+                        <p>Support education and empowerment of young girls</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 60%"></div>
+                        </div>
+                        <div class="cause-stats">
+                            <span>Raised: $48,000</span>
+                            <span>Goal: $80,000</span>
+                        </div>
+                        <a href="girl_child_education.html" class="donate-btn">Donate Now</a>
+                    </div>
+                </div>
+
+                <!-- Cause 3 -->
+                <div class="cause-card">
+                    <div class="cause-image">
+                        <img src="animal_rescue.jpg" alt="Animal Rescue">
+                    </div>
+                    <div class="cause-content">
+                        <h3>Animal Rescue</h3>
+                        <p>Help us rescue and rehabilitate abandoned animals</p>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 85%"></div>
+                        </div>
+                        <div class="cause-stats">
+                            <span>Raised: $51,000</span>
+                            <span>Goal: $60,000</span>
+                        </div>
+                        <a href="animal_rescue.html" class="donate-btn">Donate Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
