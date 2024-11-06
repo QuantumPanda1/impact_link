@@ -1,0 +1,368 @@
+Run
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Link - Impact Report</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #059669;
+            --accent: #f59e0b;
+            --danger: #dc2626;
+            --success: #10b981;
+            --text: #1f2937;
+            --light: #f3f4f6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .main-content {
+            margin-top: 80px;
+            padding: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .impact-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .impact-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .impact-summary {
+            color: var(--text);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .impact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .impact-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .impact-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .impact-label {
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .achievement-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .achievement-section h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .achievement-list {
+            list-style: none;
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .achievement-icon {
+            background: var(--light);
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .achievement-content {
+            flex-grow: 1;
+        }
+
+        .achievement-title {
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-description {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .impact-header {
+                padding: 1rem;
+            }
+
+            .impact-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="dashboard.html" class="logo">Impact<span>Link</span></a>
+            <div class="nav-links">
+                <a href="dashboard.html" class="nav-link">Dashboard</a>
+                <a href="causes.html" class="nav-link">Causes</a>
+                <a href="donations.html" class="nav-link">Donations</a>
+                <a href="impact_report.html" class="nav-link">Impact Report</a>
+                <div class="user-menu">
+                    <button class="user-button">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Test User</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="impact-header">
+            <h1>Our Impact Report</h1>
+            <p class="impact-summary">Through the generous support of our donors, we've made significant progress in transforming lives and communities. Here's what we've achieved together.</p>
+        </div>
+
+        <div class="impact-grid">
+            <div class="impact-card">
+                <i class="fas fa-hand-holding-heart"></i>
+                <div class="impact-value">$209,000</div>
+                <div class="impact-label">Total Donations Raised</div>
+            </div>
+            <div class="impact-card">
+                <i class="fas fa-users"></i>
+                <div class="impact-value">15,000+</div>
+                <div class="impact-label">Lives Impacted</div>
+            </div>
+            <div class="impact-card">
+                <i class="fas fa-globe-americas"></i>
+                <div class="impact-value">4</div>
+                <div class="impact-label">Active Initiatives</div>
+            </div>
+        </div>
+
+        <div class="quotes-container" style="display: flex; gap: 2rem; margin-bottom: 3rem;">
+            <div class="quote" style="flex: 1; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <p style="font-style: italic; color: var(--text); margin-bottom: 1rem;">"The true measure of any society can be found in how it treats its most vulnerable members."</p>
+                <div style="text-align: right; color: var(--primary); font-weight: 600;">- Mahatma Gandhi</div>
+            </div>
+            <div class="quote" style="flex: 1; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <p style="font-style: italic; color: var(--text); margin-bottom: 1rem;">"Never doubt that a small group of thoughtful, committed citizens can change the world; indeed, it's the only thing that ever has."</p>
+                <div style="text-align: right; color: var(--primary); font-weight: 600;">- Margaret Mead</div>
+            </div>
+        </div>
+
+        <div class="achievement-section">
+            <h2>Key Achievements</h2>
+            <ul class="achievement-list">
+                <li class="achievement-item">
+                    <div class="achievement-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="achievement-content">
+                        <h3 class="achievement-title">Girl Child Education</h3>
+                        <p class="achievement-description">
+                            - Provided scholarships to 800+ girls<br>
+                            - Established partnerships with 20 schools<br>
+                            - Improved literacy rates by 90% in target communities<br>
+                            - Launched mentorship program reaching 200 students
+                        </p>
+                    </div>
+                </li>
+                <li class="achievement-item">
+                    <div class="achievement-icon">
+                        <i class="fas fa-tractor"></i>
+                    </div>
+                    <div class="achievement-content">
+                        <h3 class="achievement-title">Farmer Support Initiative</h3>
+                        <p class="achievement-description">
+                            - Supported 1,250+ farmers across 15 communities<br>
+                            - Implemented sustainable farming practices<br>
+                            - Increased average farmer income by 85%<br>
+                            - Distributed modern farming equipment to 150 farmers
+                        </p>
+                    </div>
+                </li>
+                <li class="achievement-item">
+                    <div class="achievement-icon">
+                        <i class="fas fa-paw"></i>
+                    </div>
+                    <div class="achievement-content">
+                        <h3 class="achievement-title">Animal Rescue Program</h3>
+                        <p class="achievement-description">
+                            - Rescued and rehabilitated 1,200+ animals<br>
+                            - Completed 300 successful adoptions<br>
+                            - Provided veterinary care to 50 animals monthly<br>
+                            - Opened new shelter facility increasing capacity by 40%
+                        </p>
+                    </div>
+                </li>
+                <li class="achievement-item">
+                    <div class="achievement-icon">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <div class="achievement-content">
+                        <h3 class="achievement-title">Forest Conservation</h3>
+                        <p class="achievement-description">
+                            - Planted 500,000+ trees<br>
+                            - Protected 20 forest areas<br>
+                            - Increased biodiversity by 75%<br>
+                            - Educated 5,000+ individuals on conservation
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="impact-section" style="background: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; text-align: center;">
+            <h2 style="color: var(--primary); margin-bottom: 1.5rem;">Future Goals</h2>
+            <p style="color: var(--text); max-width: 800px; margin: 0 auto; line-height: 1.6;">
+                We're committed to expanding our impact in the coming year. Our targets include:<br>
+                - Reaching 25,000+ beneficiaries across all programs<br>
+                - Launching 2 new initiatives in healthcare and clean water<br>
+                - Expanding our geographical reach to 5 new regions<br>
+                - Increasing our donor base by 200%
+            </p>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="dashboard.html" style="display: inline-block; padding: 1rem 2rem; background: var(--primary); color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: background 0.3s;">
+                Support Our Mission
+            </a>
+        </div>
+    </main>
+
+    <footer style="background: var(--primary); color: white; text-align: center; padding: 1rem; margin-top: 2rem;">
+        <p>&copy; 2024 Impact Link. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.querySelector('.user-button').addEventListener('click', function() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>
